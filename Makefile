@@ -1,7 +1,12 @@
 BIN = bin/
+OBJ = obj/
+CC = gcc
 
-all: friends.o
-	gcc friends.o -o $(BIN)friends
+all: clean1 $(OBJ)friends.o
+	$(CC) $(OBJ)friends.o -o $(BIN)friends
 
-friends.o: friends.c
-	gcc -c friends.c
+$(OBJ)friends.o: friends.c
+	$(CC) -c -o $@ $<
+
+clean1:
+	rm -rf bin/*
