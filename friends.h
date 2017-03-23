@@ -8,8 +8,11 @@ typedef struct vertex{
   char name[50];
 }VERTEX;
 
+typedef struct edge *NEXT;
+
 typedef struct edge{
-  VERTEX data, *next;
+  VERTEX data;
+  NEXT next;
 }EDGE;
 
 typedef struct list{
@@ -17,3 +20,12 @@ typedef struct list{
 }LIST;
 
 LIST ALL_VERTEX[MAX_VERTEX];
+char ALL_LINKS[MAX_VERTEX][50];
+
+void insertVertex(int, char*, char*);
+void insertLinks(int, char*);
+int emptyList(int);
+void insertLinksOnVertex(int, int);
+void processLinks();
+void printAllVertex();
+void printOneVertex(int);
