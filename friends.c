@@ -96,6 +96,12 @@ void printOneVertex(int i)
   }
 }
 
+// TODO depth search
+// void countDegrees()
+// {
+//
+// }
+
 // TODO Incomplete links
 // void findError(char *links)
 // {
@@ -117,7 +123,7 @@ int main(){
 
     processLinks();
     // printAllVertex();
-    // printOneVertex(38);
+    // printOneVertex(14);
 
     fclose(pF);
   }
