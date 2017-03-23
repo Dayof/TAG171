@@ -1,11 +1,5 @@
 #include "friends.h"
 
-void initList(int i)
-{
-  ALL_VERTEX[i].first = (EDGE*)malloc(sizeof(EDGE));
-  ALL_VERTEX[i].last = ALL_VERTEX[0].first;
-}
-
 void insertVertex(int i, char *reg, char *name, char *links)
 {
   VERTEX *new_vertex = (VERTEX*)malloc(sizeof(VERTEX));
@@ -16,10 +10,10 @@ void insertVertex(int i, char *reg, char *name, char *links)
   new_edge->data = *new_vertex;
   new_edge->next = NULL;
 
-  initList(i);
-  ALL_VERTEX[i].last->next = &new_edge->data;
-  ALL_VERTEX[i].last = new_edge;
-  // printf("%s - %s\n", ALL_VERTEX[i].last->data.reg, ALL_VERTEX[i].last->data.name);
+  ALL_VERTEX[i].first = (EDGE*)malloc(sizeof(EDGE));
+  ALL_VERTEX[i].first = new_edge;
+  ALL_VERTEX[i].last = ALL_VERTEX[i].first;
+  // printf("%s - %s\n", ALL_VERTEX[i].first->data.reg, ALL_VERTEX[i].last->data.reg);
 }
 
 // void processLinks(char *links)
