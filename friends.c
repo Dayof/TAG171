@@ -22,17 +22,59 @@ void insertLinks(int i, char *links)
 
 int emptyList(int i)
 {
-  return (ALL_VERTEX[i].first == NULL);
+  return (ALL_VERTEX[i].first->next == NULL);
 }
 
 void insertLinksOnVertex(int vert, int adj)
 {
-  // printf("YES %d %d\n", vert, adj);
+  NEXT temp = ALL_VERTEX[vert].last;
+
   // printf("%d on %d, value: %s\n", vert, adj, ALL_VERTEX[vert].last->data.reg);
-  ALL_VERTEX[vert].last->next = ALL_VERTEX[adj].first;
-  ALL_VERTEX[vert].last = ALL_VERTEX[adj].first;
-  ALL_VERTEX[vert].last->next = NULL;
-  printOneVertex(vert);
+  // printOneVertex(vert);
+  // getchar();
+
+  // if(vert==13)
+  // {
+  //   printf("1. at %d insert %d : %s\n", 0, adj, ALL_VERTEX[0].first->next->next->data.reg);
+  //   printf("1.5. at %d insert %d : %s\n", vert, adj, ALL_VERTEX[vert].last->next->data.reg);
+  // }
+  // if(vert==13)
+  // {
+  //   printf("1.8. at %d insert %d : %s\n", vert, adj, ALL_VERTEX[vert].last->next->data.reg);
+  //   printf("2. at %d insert %d : %s\n", 0, adj, ALL_VERTEX[0].first->next->next->data.reg);
+  // }
+
+  // ALL_VERTEX[vert].last = ALL_VERTEX[vert].last->next;
+
+  // if(vert==13)
+  // {
+  //   printf("3. at %d insert %d : %s\n", 0, adj, ALL_VERTEX[0].first->next->next->data.reg);
+  // }
+
+
+
+  // if(vert==13)
+  // {
+  //   printf("4. at %d insert %d : %s\n", 0, adj, ALL_VERTEX[0].first->next->next->data.reg);
+  // }
+
+  // printf("at %d insert %d, value: %s\n", vert, adj, ALL_VERTEX[vert].last->data.reg);
+
+
+  if(emptyList(vert))
+  {
+    ALL_VERTEX[vert].last = ALL_VERTEX[adj].first;
+    ALL_VERTEX[vert].first->next = ALL_VERTEX[vert].last;
+    ALL_VERTEX[vert].last->next = NULL;
+  }
+  else
+  {
+    ALL_VERTEX[vert].last->next = (EDGE*)malloc(sizeof(EDGE));
+    ALL_VERTEX[vert].last = ALL_VERTEX[vert].last->next;
+    strcpy(ALL_VERTEX[vert].last->data.reg,  ALL_VERTEX[adj].first->data.reg);
+    strcpy(ALL_VERTEX[vert].last->data.name,  ALL_VERTEX[adj].first->data.name);
+    ALL_VERTEX[vert].last->next = NULL;
+  }
 }
 
 void processLinks()
@@ -80,16 +122,17 @@ void printOneVertex(int i)
   printf("Matrícula : %s - Nome : %s\n\n", ALL_VERTEX[i].first->data.reg,
                                         ALL_VERTEX[i].first->data.name);
 
-  if(emptyList(14)) printf("SEM AMIGOS\n");
+  if(emptyList(i)) printf("SEM AMIGOS\n");
   else
   {
     printf("------ AMIGOS\n");
     temp = ALL_VERTEX[i].first->next;
-    while(temp->next != NULL)
-    {
+    do{
       printf("Matrícula : %s - Nome : %s\n\n", temp->data.reg, temp->data.name);
       temp = temp->next;
-    }
+    }while(temp != NULL);
+
+    printf("------ END\n");
   }
 }
 
@@ -114,7 +157,8 @@ int main(){
 
     processLinks();
     // printAllVertex();
-    // printOneVertex(0);
+
+    printOneVertex(0);
 
     fclose(pF);
   }

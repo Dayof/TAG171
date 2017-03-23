@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
 #define MAX_VERTEX 39
 
 typedef struct vertex{
@@ -9,14 +10,13 @@ typedef struct vertex{
 }VERTEX;
 
 typedef struct edge *NEXT;
-
 typedef struct edge{
   VERTEX data;
   NEXT next;
 }EDGE;
 
 typedef struct list{
-  EDGE *first, *last;
+  NEXT first, last;
 }LIST;
 
 LIST ALL_VERTEX[MAX_VERTEX];
