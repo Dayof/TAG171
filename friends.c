@@ -27,54 +27,14 @@ int emptyList(int i)
 
 void insertLinksOnVertex(int vert, int adj)
 {
-  NEXT temp = ALL_VERTEX[vert].last;
+  ALL_VERTEX[vert].last->next = (EDGE*)malloc(sizeof(EDGE));
+  ALL_VERTEX[vert].last = ALL_VERTEX[vert].last->next;
+  strcpy(ALL_VERTEX[vert].last->data.reg,  ALL_VERTEX[adj].first->data.reg);
+  strcpy(ALL_VERTEX[vert].last->data.name,  ALL_VERTEX[adj].first->data.name);
 
-  // printf("%d on %d, value: %s\n", vert, adj, ALL_VERTEX[vert].last->data.reg);
-  // printOneVertex(vert);
-  // getchar();
+  if(emptyList(vert)) ALL_VERTEX[vert].first->next = ALL_VERTEX[vert].last;
 
-  // if(vert==13)
-  // {
-  //   printf("1. at %d insert %d : %s\n", 0, adj, ALL_VERTEX[0].first->next->next->data.reg);
-  //   printf("1.5. at %d insert %d : %s\n", vert, adj, ALL_VERTEX[vert].last->next->data.reg);
-  // }
-  // if(vert==13)
-  // {
-  //   printf("1.8. at %d insert %d : %s\n", vert, adj, ALL_VERTEX[vert].last->next->data.reg);
-  //   printf("2. at %d insert %d : %s\n", 0, adj, ALL_VERTEX[0].first->next->next->data.reg);
-  // }
-
-  // ALL_VERTEX[vert].last = ALL_VERTEX[vert].last->next;
-
-  // if(vert==13)
-  // {
-  //   printf("3. at %d insert %d : %s\n", 0, adj, ALL_VERTEX[0].first->next->next->data.reg);
-  // }
-
-
-
-  // if(vert==13)
-  // {
-  //   printf("4. at %d insert %d : %s\n", 0, adj, ALL_VERTEX[0].first->next->next->data.reg);
-  // }
-
-  // printf("at %d insert %d, value: %s\n", vert, adj, ALL_VERTEX[vert].last->data.reg);
-
-
-  if(emptyList(vert))
-  {
-    ALL_VERTEX[vert].last = ALL_VERTEX[adj].first;
-    ALL_VERTEX[vert].first->next = ALL_VERTEX[vert].last;
-    ALL_VERTEX[vert].last->next = NULL;
-  }
-  else
-  {
-    ALL_VERTEX[vert].last->next = (EDGE*)malloc(sizeof(EDGE));
-    ALL_VERTEX[vert].last = ALL_VERTEX[vert].last->next;
-    strcpy(ALL_VERTEX[vert].last->data.reg,  ALL_VERTEX[adj].first->data.reg);
-    strcpy(ALL_VERTEX[vert].last->data.name,  ALL_VERTEX[adj].first->data.name);
-    ALL_VERTEX[vert].last->next = NULL;
-  }
+  ALL_VERTEX[vert].last->next = NULL;
 }
 
 void processLinks()
@@ -157,8 +117,7 @@ int main(){
 
     processLinks();
     // printAllVertex();
-
-    printOneVertex(0);
+    // printOneVertex(38);
 
     fclose(pF);
   }
