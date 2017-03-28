@@ -15,6 +15,12 @@ void insertVertex(int i, char *reg, char *name)
   ALL_VERTEX[i].last = ALL_VERTEX[i].first;
 }
 
+void initStack()
+{
+  for(int i = 0; i< MAX_VERTEX; ++i)
+    ALL_CHECK_VERTEX[i].data = NULL;
+}
+
 void insertLinks(int i, char *links)
 {
   strcpy(ALL_LINKS[i], links);
@@ -96,11 +102,66 @@ void printOneVertex(int i)
   }
 }
 
-// TODO depth search
-// void countDegrees()
-// {
-//
-// }
+void printLastOnStack()
+{
+  for(int i = 0; i < ALL_CHECK_VERTEX[SIZE_STACK].size_tuple; ++i)
+    printf("Reg: %s \n", ALL_CHECK_VERTEX[SIZE_STACK].data[i].second);
+}
+
+void pop()
+{
+  ALL_CHECK_VERTEX[SIZE_STACK].data = NULL;
+  --SIZE_STACK;
+}
+
+// LIST OF TUPLE -> [ORIGIN VERTEX, ADJ REG]
+void push(TUPLE *node, int size_tuple)
+{
+  ALL_CHECK_VERTEX[SIZE_STACK].data = node;
+  ALL_CHECK_VERTEX[SIZE_STACK].size_tuple = size_tuple;
+  ALL_CHECK_VERTEX[SIZE_STACK].next = NULL;
+  if(SIZE_STACK) ++SIZE_STACK;
+}
+
+int size(NEXT node)
+{
+  int result = 0;
+  NEXT temp;
+
+  temp = node->next;
+
+  while(temp != NULL)
+  {
+    ++result;
+    temp = temp->next;
+  }
+
+  return result;
+}
+
+// depth search
+void countDegrees()
+{
+  NEXT temp;
+  int vertex_index = 0;
+
+  temp = ALL_VERTEX[vertex_index].first;
+  ALL_CHECK_VERTEX[SIZE_STACK].data = (TUPLE*)malloc(sizeof(TUPLE));
+  for(int j = 0; j < size(temp) && temp != NULL; ++j)
+  {
+    ALL_CHECK_VERTEX[SIZE_STACK].data[j].first = vertex_index;
+    strcpy(ALL_CHECK_VERTEX[SIZE_STACK].data[j].second, temp[vertex_index].data.reg);
+    temp = temp->next;
+  }
+
+  // do{
+  //   printf("Matrícula : %s - Nome : %s\n\n", temp->data.reg, temp->data.name);
+  //   temp = temp->next;
+  // }while(temp != NULL);
+
+  // printf("%d\n", VISITED_VERTEX[15]);
+  // while()
+}
 
 // TODO Incomplete links
 // void findError(char *links)
@@ -122,8 +183,29 @@ int main(){
     }
 
     processLinks();
-    // printAllVertex();
-    // printOneVertex(14);
+    initStack();
+
+    // countDegrees();
+    //printAllVertex();
+    //printOneVertex(37);
+
+    // test size
+    // printf("%d\n", size(node));
+
+    // test size
+    // push stack
+    // TUPLE node[10];
+    // node[0].first = 0;
+    // char *reg = "130107191";
+    // strcpy(node[0].second, reg);
+    //
+    // node[1].first = 0;
+    // char *reg2 = "110027931";
+    // strcpy(node[1].second, reg2);
+    //
+    // push(node, 2);
+    // printf("%d\n", SIZE_STACK);
+    // printLastOnStack();
 
     fclose(pF);
   }
