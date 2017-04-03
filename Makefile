@@ -1,12 +1,26 @@
-BIN = bin/
-OBJ = obj/
-CC = gcc
+OBJ_DIR = obj/
+SRC_DIR = src/
+HPP_DIR = headers/
+CFLAGS = g++
 
-all: clean1 $(OBJ)friends.o
-	$(CC) $(OBJ)friends.o -o $(BIN)friends
+TARGET_MAIN = main
+TARGET_REMOVE = rm
+TARGET_ALL = all
 
-$(OBJ)friends.o: friends.c
-	$(CC) -c -o $@ $<
+_DEPS = friends.inl
+DEPS = $(patsubst %,$(HPP_DIR)%,$(_DEPS))
 
-clean1:
-	rm -rf bin/*
+_OBJ = friends.o
+OBJ = $(patsubst %,$(OBJ_DIR)%,$(_OBJ))
+
+$(TARGET_ALL): $(TARGET_REMOVE) $(TARGET_MAIN)
+
+$(TARGET_MAIN): $(OBJ)
+	$(CFLAGS) -o $@ $^ -I$(HPP_DIR)
+
+$(OBJ_DIR)%.o: $(SRC_DIR)%.cpp $(DEPS)
+	$(CFLAGS) -c -o $@ $< -I$(HPP_DIR)
+
+$(TARGET_REMOVE):
+	rm -r $(OBJ_DIR)
+	mkdir $(OBJ_DIR)

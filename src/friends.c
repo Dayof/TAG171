@@ -185,7 +185,7 @@ int main(){
     processLinks();
     initStack();
 
-    // countDegrees();
+    //countDegrees();
     //printAllVertex();
     //printOneVertex(37);
 
