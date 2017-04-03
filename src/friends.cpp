@@ -21,6 +21,12 @@ void printAllVertex (vector<vector<pair<string, string> > > graph_list)
   }
 }
 
+void printAllDegress ()
+{
+  for (int j=0; j < DEGREES.size() ; ++j)
+    cout << ALL_GRAPH[DEGREES[j].first][0].second << " have " << DEGREES[j].second << " friends." << endl;
+}
+
 void processLinks()
 {
   int str_num, n = 0;
@@ -71,6 +77,14 @@ void insertLinks(string links)
   LINKS.push_back(links);
 }
 
+void countDegrees()
+{
+  for(int i = 0; i < ALL_GRAPH.size(); ++i)
+    DEGREES[i] = make_pair(i, ALL_GRAPH[i].size()-1) ;
+
+  sort(DEGREES.begin(), DEGREES.end(), desc);
+}
+
 int main()
 {
   char reg[15], name[50], links[50];
@@ -91,7 +105,9 @@ int main()
   }
 
   processLinks();
-  printAllVertex(ALL_GRAPH);
+  // printAllVertex(ALL_GRAPH);
+  countDegrees();
+  printAllDegress();
 
   return 0;
 }

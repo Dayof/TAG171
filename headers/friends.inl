@@ -25,6 +25,7 @@
 #include <string>
 #include <vector>
 #include <utility>
+#include <algorithm>
 
 #define MAX_VERTEX 39
 
@@ -32,17 +33,24 @@ using namespace std;
 
 /* -- Definições de Funções -- */
 
-void printMainVertex (vector<pair<string, string> >);
 void printAllVertex (vector<vector<pair<string, string> > >);
+void printMainVertex (vector<pair<string, string> >);
+void printAllDegress ();
 void insertVertex(int, string, string, string);
-void processLinks();
 void insertLinks(string);
+void processLinks();
 void insertLinksOnVertex(int, int, string, string);
+void countDegrees();
 
 /* -- Definições de TADs -- */
 
 vector<vector<pair<string, string> > > ALL_GRAPH(MAX_VERTEX);
 vector<string> LINKS;
+vector<pair<int, int> > DEGREES(MAX_VERTEX);
 
+bool desc(const pair<int,int> &a,const pair<int,int> &b)
+{
+       return a.second > b.second;
+}
 
 #endif // HEADERS_HPP_INCLUDED
