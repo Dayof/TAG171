@@ -1,21 +1,18 @@
 /** @file friends.inl
- *  @brief Arquivos de bibliotecas em comum
- *  dos arquivos de entidade e domínio.
+ *  @brief File of libraries.
  *
- *  Neste arquivo contém os includes de
- *  bibliotecas gerais do C++ como também
- *  as assinaturas de todas funções a serem
- *  utilizadas neste projeto e tipos de dados
- *  globais.
+ *  This file includes all general libraries
+ *  of C++ as well as the signature of each funcion of the program.
+ *  Also, all global variables are kept here.
  *
- *  @author Dayanne Fernandes
- *  @bug Sem bug conhecido.
+ *  @author Dayanne Fernandes da Cunha 13/0107191
+ *  @bug No bug known.
  */
 
 #ifndef HEADERS_INL_INCLUDED
 #define HEADERS_INL_INCLUDED
 
-/* -- Bibliotecas necessárias para o bom funcionamento do sistema -- */
+/* -- Basic libraries for the better functioning of the program -- */
 
 #include <iostream>
 #include <sstream>
@@ -30,9 +27,9 @@
 
 using namespace std;
 
-/* ----------- Definições de todas as funções do sistema ----------- */
+/* ----------- Definition of all functions of the program ----------- */
 
-/* -- Definições de funções para mostrar dados na tela do terminal -- */
+/* -- Functions to show data on command terminal -- */
 
 void printAllVertex (vector<vector<pair<int, pair<string, string> > > >);
 void printMainVertex (vector<pair<int, pair<string, string> > >);
@@ -40,25 +37,25 @@ void printAllDegress ();
 void printAllCliques();
 void printClique(vector<int>);
 
-/* -- Definições de funções para criação e população do grafo base -- */
+/* -- Functions to create and populate the base graph -- */
 
-void insertVertex(int, string, string, string);
+void insertVertex(int, string, string);
 void insertLinks(string);
 void processLinks();
 void insertLinksOnVertex(int, int, string, string);
 
-/* -- Definição da função para contar graus de cada vértice do grafo base -- */
+/* -- Functions to count all the degrees of every main vertex -- */
 
 void countDegrees();
 
-/* -- Definições de funções para executar o algoritmo de Bron-Kerbosch -- */
+/* -- Functions to execute the algorithm of Bron-Kerbosch -- */
 
 vector<int> uni(vector<int>, int);
 vector<int> intersec(vector<int>, int);
 void bron(vector<int>,vector<int>,vector<int>);
 void prepareBron();
 
-/* -- Definições de TADs -- */
+/* -- Global variables definitions -- */
 
 #define MAX_VERTEX 39
 
@@ -67,11 +64,11 @@ vector<pair<int, int> > DEGREES(MAX_VERTEX);
 set<vector<int> > ALL_CLIQUES;
 vector<string> LINKS;
 
-/* -- Definição de função de comparação para realizar ordenação -- */
+/* -- Function to ordinate the degrees from highest grade to lowest -- */
 
 bool desc(const pair<int,int> &a,const pair<int,int> &b)
 {
        return a.second > b.second;
 }
 
-#endif // HEADERS_HPP_INCLUDED
+#endif // HEADERS_INL_INCLUDED

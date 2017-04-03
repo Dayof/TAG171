@@ -1,8 +1,19 @@
+/** @file friends.cpp
+ *  @brief Main file.
+ *
+ *  This file contains all the functions and variables
+ *  to fully execute the first project of TAG 2017/1.
+ *
+ *  @author Dayanne Fernandes da Cunha 13/0107191
+ *  @bug No bug known.
+ */
+
 #include "friends.inl"
 
 /**
- * A function to print all main vertex of the graph.
- * @param graph_list vector of pairs of pairs.
+ * A function to print a specific main vertex of the graph and its neighbours.
+ * @param graph_list vector of pairs of pairs that represents a node and
+ *                    its neighbours
  *
  * @return void
  */
@@ -16,7 +27,8 @@ void printMainVertex (vector<pair<int, pair<string, string> > > graph_list)
 
 /**
  * A function to print all main vertex and its neighbours of the graph.
- * @param graph_list vector of vectors of pairs of pairs.
+ * @param graph_list vector of vectors of pairs of pairs that represents all
+ *                    the graph
  *
  * @return void
  */
@@ -34,12 +46,52 @@ void printAllVertex (vector<vector<pair<int, pair<string, string> > > >  graph_l
   }
 }
 
+/**
+ * A function to print all degress of each vertex of the graph.
+ *
+ * @return void
+ */
 void printAllDegress ()
 {
   for (int j=0; j < DEGREES.size() ; ++j)
     cout << ALL_GRAPH[DEGREES[j].first][0].second.first << " has " << DEGREES[j].second << " friends." << endl;
 }
 
+/**
+ * A function to print one clique of the graph.
+ * @param clique vector that contains integers representing each vertex of the *                clique
+ *
+ * @return void
+ */
+void printClique(vector<int> clique)
+{
+  for(int k = 0; k < clique.size(); ++k)
+    cout << clique[k] << " ";
+}
+
+/**
+ * A function to print all cliques of the graph.
+ *
+ * @return void
+ */
+void printAllCliques()
+{
+  for(auto c : ALL_CLIQUES)
+  {
+    for(auto v : c)
+      cout << v << " ";
+    cout << endl << "-----" << endl;;
+  }
+}
+
+/**
+ * A function to process every link from each vertex of the graph. All links
+ *  are saved on a vector of strings of links collected from this main file,
+ *  then here it is process each char to make the reference of every link that
+ *  one person has with another.
+ *
+ * @return void
+ */
 void processLinks()
 {
   int str_num, n = 0;
@@ -70,26 +122,58 @@ void processLinks()
   }
 }
 
+/**
+ * A function to insert each link that a vertex has on the graph.
+ * @param i integer that represents the main vertex to insert the link
+ * @param location integer that represents the location of the linked
+ * @param reg string that represents the registration of the person linked
+ *            with the main vertex
+ * @param name string that represents the name of the person linked with the
+ *             main vertex
+ *
+ * @return void
+ */
 void insertLinksOnVertex(int i, int location, string reg, string name)
 {
   for (int j = 1; j < ALL_GRAPH[i].size(); ++j)
-  {
     if(ALL_GRAPH[i][j].second.first == reg)
       return;
-  }
+
   ALL_GRAPH[i].push_back(make_pair(location, make_pair(reg, name)));
 }
 
-void insertVertex(int i, string reg, string name, string links)
+/**
+ * A function to insert each main vertex on the main vector.
+ * @param i  integer that represents the location of this main vertex
+ * @param reg string that represents the registration of the main vertex
+ * @param name string that represents the name of the main vertex
+ *
+ * @return void
+ */
+void insertVertex(int i, string reg, string name)
 {
   ALL_GRAPH[i].push_back(make_pair(i, make_pair(reg,name)));
 }
 
+/**
+ * A function to save all links from each main vertex. This is used to insert
+ *  every link into every main vertex after they are all process to exist their
+ *  reference first.
+ * @param links string that represents the links of a main vertex
+ *
+ * @return void
+ */
 void insertLinks(string links)
 {
   LINKS.push_back(links);
 }
 
+/**
+ * A function to count all degrees of every main vertex. Is sorted from highest
+ *  grade to lowest.
+ *
+ * @return void
+ */
 void countDegrees()
 {
   for(int i = 0; i < ALL_GRAPH.size(); ++i)
@@ -98,28 +182,34 @@ void countDegrees()
   sort(DEGREES.begin(), DEGREES.end(), desc);
 }
 
-void printClique(vector<int> clique)
-{
-  for(int k = 0; k < clique.size(); ++k)
-    cout << clique[k] << " ";
-}
-
-void printAllCliques()
-{
-  for(auto c : ALL_CLIQUES)
-  {
-    for(auto v : c)
-      cout << v << " ";
-    cout << endl << "-----" << endl;;
-  }
-}
-
+/**
+ * A function to perfom the union operation with with the first set and a
+ *  element.
+ * @param first vectors of integers that represents the set that will perform a
+ *               union operation with the second parameter
+ * @param second integer that represents the element to be add on the first
+ *                parameter
+ *
+ * @return vector<int> the vectors of integers with the second parameter added
+ */
 vector<int> uni(vector<int> first, int second)
 {
   first.push_back(second);
   return first;
 }
 
+/**
+ * A function to perfom the intersection operation with the first set and the
+ *  neighbours of the second element.
+ * @param conf vectors of integers that represents the set that will perform a
+ *               intersection operation with the neighbours of the second
+ *              parameter
+ * @param v integer that represents the element which will be the link to find
+ *          its neighbours
+ *
+ * @return vector<int> the vectors of integers with the new set generated from
+ *                       the intersection operation
+ */
 vector<int> intersec(vector<int> conf, int v)
 {
   vector<int> newfirst;
@@ -132,6 +222,17 @@ vector<int> intersec(vector<int> conf, int v)
   return newfirst;
 }
 
+/**
+ * A function that calculate all the maximals cliques of a graph.
+ * @param R vectors of integers that represents a possibly clique
+ * @param P vectors of integers that represents vertices adjacent to every
+ *          vertex currently in R, none/few/all when added to R makes it
+ *          maximal
+ * @param X vectors of integers that represents nodes already in some clique
+ *          or processed (to remove duplicate cliques)
+ *
+ * @return void
+ */
 void bron(vector<int> R,vector<int> P,vector<int> X)
 {
   vector<int> newr, newp, newx;
@@ -152,6 +253,11 @@ void bron(vector<int> R,vector<int> P,vector<int> X)
   }
 }
 
+/**
+ * A function to prepared data to calculate all the maximals cliques of a graph.
+ *
+ * @return void
+ */
 void prepareBron()
 {
   vector<int> R, P, X;
@@ -162,6 +268,11 @@ void prepareBron()
   bron(R, P, X);
 }
 
+/**
+ * A function that sort the maximum cliques to be shown.
+ *
+ * @return void
+ */
 void getMaxCliques()
 {
   set<vector<int> > new_all_cliques;
@@ -178,11 +289,21 @@ void getMaxCliques()
   ALL_CLIQUES = new_all_cliques;
 }
 
+/**
+ * A function to clear the terminal and format better the menu of options.
+ *
+ * @return void
+ */
 void clearScreen()
 {
   cout << string( 100, '\n' );
 }
 
+/**
+ * A function to show the menu of options on terminal.
+ *
+ * @return void
+ */
 void menu()
 {
   int key;
@@ -220,6 +341,12 @@ void menu()
   }while(cont);
 }
 
+/**
+ * Main function. Read, load and execute all main functionalities of the
+ *  program.
+ *
+ * @return int 0 represents good exit, -1 represents bad exit
+ */
 int main()
 {
   FILE *pF = fopen("amigos.txt", "r");
@@ -241,8 +368,8 @@ int main()
     sreg = reg;
     sname = name;
     slinks = links;
-    insertVertex(count_vertex, sreg, sname, slinks);
-    insertLinks(links);
+    insertVertex(count_vertex, sreg, sname);
+    insertLinks(slinks);
     ++count_vertex;
   }
 

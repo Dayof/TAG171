@@ -13,12 +13,12 @@ Para executar este programa basta executar os seguintes comandos no terminal:
 Este comando acima compila o programa utilizando o [Makefile](https://github.com/Dayof/TAG171/blob/master/Makefile) e já o executa em seguida. Caso queira só executar o programa sem necessariamente compilar, executar o seguinte comando:
 
 ```
-  $ sudo make
+  $ ./main
 ```
 
 ## Pré-requisitos do sistema
 
-Este programa foi implementado utilizando o sistema operacional macOS Sierra, versão 10.12.3. A linguagem de programação utilizada para implementar todo o projeto foi C++11.
+Este programa foi implementado utilizando o sistema operacional ``macOS Sierra``, versão ``10.12.3``. A linguagem de programação utilizada para implementar todo o projeto foi ``C++11``.
 
 ## Detalhes sobre o projeto
 
@@ -50,5 +50,6 @@ O programa realiza as seguintes funcionalidades a partir do menu principal:
 ## Autoria
 
 - Dayanne Fernandes da Cunha
+    - Matrícula: 13/0107191
     - E-mail: dayannefernandesc@gmail.com
     - GitHub: [Dayof](https://github.com/Dayof)
