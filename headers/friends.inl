@@ -63,6 +63,7 @@ vector<vector<pair<int, pair<string, string> > > > ALL_GRAPH(MAX_VERTEX);
 vector<pair<int, int> > DEGREES(MAX_VERTEX);
 set<vector<int> > ALL_CLIQUES;
 vector<string> LINKS;
+int MAX_CLIQUE = 0;
 
 /* -- Function to ordinate the degrees from highest grade to lowest -- */
 

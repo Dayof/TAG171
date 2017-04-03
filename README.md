@@ -30,7 +30,8 @@ O programa realiza as seguintes funcionalidades a partir do menu principal:
 
 - Opção 1 : Calcula todos os graus dos vértices do grafo e imprime em ordem decrescente estes dados no seguinte formato ``MATRICULA has X friends``, ``X`` representa o número de grau do vértice vinculado aquela matrícula.
 
-- Opção 2 : Calcula o maior clique do grafo e imprime no seguinte formato ``CLIQUE DE X VERTICES \n [MATRICULA - NOME]``. Neste programa com a lista fornecida foi possível encontrar 3 cliques máximos com tamanhos iguais a 6, portanto será mostrado todos estes cliques encontrados.
+- Opção 2 : Calcula o maior clique do grafo e imprime no seguinte formato ``Existem X cliques máximos maximais de tamanho Y em cada clique. \n Clique 1.
+Nome : Z``. Neste programa com a lista fornecida foi possível encontrar 3 cliques máximos com tamanhos iguais a 6, portanto será mostrado todos estes cliques encontrados.
 
 - Opção 3 : Permite sair do programa.
 

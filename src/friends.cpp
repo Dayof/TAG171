@@ -76,11 +76,16 @@ void printClique(vector<int> clique)
  */
 void printAllCliques()
 {
+  int i = 1;
+
+  cout << "Existem " << ALL_CLIQUES.size() << " cliques máximos maximais de tamanho " << MAX_CLIQUE << " em cada clique." << endl << endl;
   for(auto c : ALL_CLIQUES)
   {
+    cout << "Clique " << i << "." << endl;
     for(auto v : c)
-      cout << v << " ";
-    cout << endl << "-----" << endl;;
+       cout << "Nome : " << ALL_GRAPH[v][0].second.second << endl;
+    cout << endl << "-----------" << endl;
+    ++i;
   }
 }
 
@@ -276,14 +281,13 @@ void prepareBron()
 void getMaxCliques()
 {
   set<vector<int> > new_all_cliques;
-  int maxc = 0;
 
   for(auto c : ALL_CLIQUES)
-    if(c.size() > maxc)
-      maxc = c.size();
+    if(c.size() > MAX_CLIQUE)
+      MAX_CLIQUE = c.size();
 
   for(auto c : ALL_CLIQUES)
-    if(c.size() == 6)
+    if(c.size() == MAX_CLIQUE)
       new_all_cliques.insert(c);
 
   ALL_CLIQUES = new_all_cliques;
