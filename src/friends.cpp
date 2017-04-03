@@ -1,5 +1,11 @@
 #include "friends.inl"
 
+/**
+ * A function to print all main vertex of the graph.
+ * @param graph_list vector of pairs of pairs.
+ *
+ * @return void
+ */
 void printMainVertex (vector<pair<int, pair<string, string> > > graph_list)
 {
   for (int j=0; j < graph_list.size() ; ++j)
@@ -8,6 +14,12 @@ void printMainVertex (vector<pair<int, pair<string, string> > > graph_list)
   cout << "-----------------" << endl;
 }
 
+/**
+ * A function to print all main vertex and its neighbours of the graph.
+ * @param graph_list vector of vectors of pairs of pairs.
+ *
+ * @return void
+ */
 void printAllVertex (vector<vector<pair<int, pair<string, string> > > >  graph_list)
 {
   for(int i = 0; i < graph_list.size(); ++i)
@@ -84,31 +96,6 @@ void countDegrees()
     DEGREES[i] = make_pair(i, ALL_GRAPH[i].size()-1) ;
 
   sort(DEGREES.begin(), DEGREES.end(), desc);
-}
-
-void printState(vector<int> R, vector<int> P, vector<int> X)
-{
-  cout << "BEGIN STATE" << endl;
-
-  cout << "R :" << endl;
-  for(int k = 0; k < R.size(); ++k)
-    cout << R[k] << " " << endl;
-
-  cout << endl;
-
-  cout << "P :" << endl;
-  for(int k = 0; k < P.size(); ++k)
-    cout << P[k] << " " << endl;
-
-  cout << endl;
-
-  cout << "X :" << endl;
-  for(int k = 0; k < X.size(); ++k)
-    cout << X[k] << " " << endl;
-
-  cout << endl;
-
-  cout << "END STATE" << endl;
 }
 
 void printClique(vector<int> clique)
@@ -191,23 +178,51 @@ void getMaxCliques()
   ALL_CLIQUES = new_all_cliques;
 }
 
-// void menu()
-// {
-//   char *key;
-//
-//   cout << "Olá professors!!" << endl;
-//   cout << "----------" << endl << "Qual ação deseja realizar?" << endl << endl;
-//   cout << "1. Mostrar todos os graus de conexão dos alunos" << endl;
-//   cout << "2. Mostrar os maiores cliques" << endl;
-//   cint >> key;
-//   while(key == 1 || key == 2)
-//   {
-//
-//   }
-// }
+void clearScreen()
+{
+  cout << string( 100, '\n' );
+}
+
+void menu()
+{
+  int key;
+  bool cont = true;
+
+  cin.clear();
+  fflush(stdin);
+
+  do{
+    clearScreen();
+    cout << "Olá professor!!" << endl;
+    cout << "----------" << endl << "Qual ação deseja realizar?" << endl << endl;
+    cout << "1. Mostrar todos os graus de conexão dos alunos" << endl;
+    cout << "2. Mostrar os maiores cliques" << endl;
+    cout << "3. Sair do sistema" << endl;
+    cin >> key;
+    switch (key)
+    {
+      case 1:
+        printAllDegress();
+        cont = false;
+        break;
+      case 2:
+        printAllCliques();
+        cont = false;
+        break;
+      case 3:
+        cont = false;
+        break;
+      default:
+        cout << "Opção incorreta! Tente digitar novamente.." << endl;
+        cout << "Press enter to continue.." << endl;
+        getchar();
+    }
+  }while(cont);
+}
 
 int main()
 {
+  FILE *pF = fopen("amigos.txt", "r");
   char reg[15], name[50], links[50];
   string sreg, sname, slinks;
   int count_vertex = 0;
@@ -215,7 +230,13 @@ int main()
   for(int k = 0; k < MAX_VERTEX; ++k)
     ALL_GRAPH[k].reserve(MAX_VERTEX-1);
 
-  while (scanf("%s | %[^|] | %[^\n]", reg, name, links) == 3)
+  if(pF == NULL)
+  {
+    cout << "Error on open the file." << endl;
+    return -1;
+  }
+
+  while (fscanf(pF, "%s | %[^|] | %[^\n]", reg, name, links) != EOF)
   {
     sreg = reg;
     sname = name;
@@ -226,14 +247,13 @@ int main()
   }
 
   processLinks();
-  // printAllVertex(ALL_GRAPH);
   countDegrees();
-  // printAllDegress();
   prepareBron();
   getMaxCliques();
-  // printAllCliques();
 
   menu();
+
+  fclose(pF);
 
   return 0;
 }
